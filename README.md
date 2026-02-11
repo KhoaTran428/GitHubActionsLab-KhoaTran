@@ -21,3 +21,42 @@ Note: If any job in the chain fails, all subsequent jobs are automatically skipp
 
 Challenges & Resolutions
 Challenge: If the "Build" job fails, the "Deploy" job shouldn't run, but sometimes you still want "Cleanup" tasks to occur.
+
+
+Multi-OS GitHub Actions Workflow
+This repository demonstrates a cross-platform CI/CD pipeline using GitHub Actions. The workflow is designed to validate code execution across the three primary operating systems supported by GitHub-hosted runners: Linux (Ubuntu), Windows, and macOS.
+
+Purpose of the Workflow
+The primary goal of this workflow is to ensure environment parity. By running independent jobs on different operating systems, we can:
+
+Verify Compatibility: Ensure scripts and build processes work across different kernels and shells.
+
+Parallel Testing: Execute tasks simultaneously to reduce the total "Time to Feedback" for developers.
+
+OS-Specific Validation: Run commands unique to each system (e.g., systeminfo vs. uname) to confirm the runner environment.
+
+Key Concepts Demonstrated
+runs-on
+This attribute defines the virtual machine image used for the job.
+
+ubuntu-latest: A standard Linux environment (currently Ubuntu 22.04 or 24.04).
+
+windows-latest: A Windows Server environment (currently Windows Server 2022).
+
+macos-latest: A macOS environment (currently running on Apple Silicon/M1).
+
+needs (Concurrency vs. Dependency)
+In this specific workflow, the needs keyword is omitted.
+
+Without needs: Jobs run in parallel. ubuntu-job, windows-job, and macos-job start at the same time.
+
+With needs: You can create a sequential chain (e.g., "Deploy" only after "Test" passes).
+
+Challenges & Resolutions
+Line Endings (CRLF vs. LF)
+Challenge: When creating files across different OSs, line endings can cause checksum failures or script errors.
+
+Resolution: By using the standard echo command within the runner's native shell, the runner handles the appropriate line ending for that specific environment automatically.
+
+
+
