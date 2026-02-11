@@ -1,0 +1,65 @@
+## YAML Template.
+
+---
+
+name: Dependent Jobs Workflow
+ 
+on:
+
+  push:
+
+    branches:
+
+      - main
+ 
+jobs:
+ 
+  build:
+
+    runs-on: ubuntu-latest
+ 
+    steps:
+
+      - name: Display Build Start Message
+
+        run: echo "Building application..."
+ 
+      - name: Simulate Build Process
+
+        run: sleep 5
+ 
+ 
+  test:
+
+    runs-on: ubuntu-latest
+
+    needs: build
+ 
+    steps:
+
+      - name: Display Test Start Message
+
+        run: echo "Running tests..."
+ 
+      - name: Simulate Testing Process
+
+        run: sleep 5
+ 
+ 
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    needs: test
+ 
+    steps:
+
+      - name: Display Deployment Start Message
+
+        run: echo "Deploying application..."
+ 
+      - name: Simulate Deployment Process
+
+        run: sleep 5
+
+ 
