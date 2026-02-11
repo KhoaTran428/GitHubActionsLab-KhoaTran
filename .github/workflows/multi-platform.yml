@@ -1,0 +1,61 @@
+## YAML Template.
+---
+name: Multi-OS Cross-Platform Jobs
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  ubuntu-job:
+    name: Ubuntu Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Print OS Info & System Details
+        run: |
+          echo "Running on: Ubuntu (Linux)"
+          uname -a
+
+      - name: Create and Display File
+        run: |
+          echo "Hello from the Linux runner!" > linux_note.txt
+          cat linux_note.txt
+
+  windows-job:
+    name: Windows Job
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Print OS Info & System Details
+        run: |
+          echo "Running on: Windows"
+          systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+
+      - name: Create and Display File
+        run: |
+          echo "Hello from the Windows runner!" > windows_note.txt
+          type windows_note.txt
+
+  macos-job:
+    name: macOS Job
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Print OS Info & System Details
+        run: |
+          echo "Running on: macOS"
+          sw_vers
+          uname -a
+
+      - name: Create and Display File
+        run: |
+          echo "Hello from the macOS runner!" > macos_note.txt
+          cat macos_note.txt
